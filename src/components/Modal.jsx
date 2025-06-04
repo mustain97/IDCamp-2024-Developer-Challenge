@@ -1,42 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const Modal = ({ isOpen, onClose, title, children }) => {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
     <div
       onClick={onClose}
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
     >
       <div
         onClick={e => e.stopPropagation()}
-        className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative"
+        className="bg-white p-6 rounded shadow max-w-md w-full"
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-600 hover:text-red-600 text-2xl font-bold"
-          aria-label="Close modal"
-          type="button"
+          className="absolute top-2 right-2 text-gray-500 hover:text-black"
         >
           &times;
         </button>
-        <h2 id="modal-title" className="text-xl font-semibold mb-4">
-          {title}
-        </h2>
+        <h2 className="text-xl font-bold mb-4">{title}</h2>
         <div>{children}</div>
       </div>
     </div>
