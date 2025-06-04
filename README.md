@@ -28,7 +28,7 @@ Data: Dummy data + LocalStorage
 Link Aplikasi: https://id-camp-2024-developer-challenge.vercel.app/
 GitHub Repo: https://github.com/mustain97/IDCamp-2024-Developer-Challenge
 **Meta Tag:**
-<meta name="dicoding:email" content="mohmustain78@gmail.com" />
+"<meta name="dicoding:email" content="mohmustain78@gmail.com" />"
 
 **6. Kesesuaian dengan Kriteria Penilaian**
 Inovasi dan Kebaruan: Menyediakan semua fitur penting karier dalam satu tempat.
