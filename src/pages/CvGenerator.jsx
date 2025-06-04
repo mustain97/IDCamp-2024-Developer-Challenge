@@ -1,39 +1,46 @@
 import React, { useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { useReactToPrint } from 'react-to-print';
+import { motion } from 'framer-motion';
 
-const CvGenerator = () => {
-  const { register, handleSubmit } = useForm();
-  const cvRef = useRef();
+const CVContent = React.forwardRef((props, ref) => (
+  <div ref={ref} className="p-6 bg-white text-black max-w-2xl mx-auto shadow-xl rounded-xl">
+    <h1 className="text-2xl font-bold mb-2">{props.name}</h1>
+    <p className="text-sm text-gray-600 mb-4">{props.title}</p>
+    <h2 className="text-lg font-semibold mt-4">Skills</h2>
+    <ul className="list-disc ml-5">
+      {props.skills.map((skill, index) => (
+        <li key={index}>{skill}</li>
+      ))}
+    </ul>
+    <h2 className="text-lg font-semibold mt-4">Experience</h2>
+    <p>{props.experience}</p>
+  </div>
+));
 
-  const onSubmit = async (data) => {
-    const element = cvRef.current;
-    const canvas = await html2canvas(element);
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF();
-    pdf.addImage(imgData, 'PNG', 10, 10);
-    pdf.save('cv.pdf');
+export default function CvGenerator() {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({ content: () => componentRef.current });
+
+  const sampleData = {
+    name: 'John Doe',
+    title: 'Frontend Developer',
+    skills: ['React', 'Tailwind CSS', 'JavaScript'],
+    experience: '1 year internship at TechCorp as Frontend Intern.'
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">CV Generator</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <input {...register("name")} placeholder="Nama Lengkap" className="input input-bordered w-full" />
-        <input {...register("email")} placeholder="Email" className="input input-bordered w-full" />
-        <textarea {...register("summary")} placeholder="Ringkasan Profil" className="textarea textarea-bordered w-full" />
-        <button type="submit" className="btn btn-primary">Download CV</button>
-      </form>
+    <motion.div className="p-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <h1 className="text-3xl font-bold mb-6">CV Generator</h1>
 
-      <div className="mt-8 p-4 border rounded bg-white shadow" ref={cvRef}>
-        <h1 className="text-xl font-semibold">Preview CV</h1>
-        <p><strong>Nama:</strong> {watch("name")}</p>
-        <p><strong>Email:</strong> {watch("email")}</p>
-        <p><strong>Ringkasan:</strong> {watch("summary")}</p>
+      <div className="bg-white p-4 rounded-lg shadow-lg">
+        <CVContent ref={componentRef} {...sampleData} />
+        <button
+          onClick={handlePrint}
+          className="mt-6 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow"
+        >
+          Download PDF
+        </button>
       </div>
-    </div>
+    </motion.div>
   );
-};
-
-export default CvGenerator;
+}
