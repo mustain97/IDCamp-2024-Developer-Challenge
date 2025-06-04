@@ -25,8 +25,8 @@ Hosting: Vercel
 Data: Dummy data + LocalStorage
 
 **5. Link Penting**
-Link Aplikasi: https://id-camp-2024-developer-challenge-2.vercel.app/
-GitHub Repo: https://github.com/mustain97/IDCamp-2024-Developer-Challenge-2
+Link Aplikasi: https://id-camp-2024-developer-challenge.vercel.app/
+GitHub Repo: https://github.com/mustain97/IDCamp-2024-Developer-Challenge
 **Meta Tag:**
 <meta name="dicoding:email" content="mohmustain78@gmail.com" />
 
