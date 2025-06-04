@@ -1,0 +1,1 @@
+export default function CvGenerator() { return <div className='p-4'>CV Generator</div>; }

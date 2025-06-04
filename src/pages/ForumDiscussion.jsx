@@ -1,0 +1,1 @@
+export default function ForumDiscussion() { return <div className='p-4'>Forum Diskusi</div>; }
