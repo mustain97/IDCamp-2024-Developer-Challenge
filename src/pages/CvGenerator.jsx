@@ -1,40 +1,41 @@
-import React, { useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import React from "react";
 
-const CvGenerator = () => {
-  const { register, handleSubmit, watch } = useForm();
-  const cvRef = useRef();
-
-  const onSubmit = async () => {
-    const element = cvRef.current;
-    const canvas = await html2canvas(element);
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF();
-    pdf.addImage(imgData, 'PNG', 10, 10);
-    pdf.save('cv-edupath.pdf');
-  };
-
+export default function CvGenerator() {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">CV Generator</h1>
+    <div className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-3xl font-bold mb-4">CV Generator</h1>
+      <p className="mb-4">
+        Di halaman ini, kamu dapat membuat CV dalam format PDF.
+        Fitur ini sedang dikembangkan — nantikan pembaruannya!
+      </p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        <input {...register("name")} placeholder="Nama Lengkap" className="input input-bordered w-full" />
-        <input {...register("email")} placeholder="Email" className="input input-bordered w-full" />
-        <textarea {...register("summary")} placeholder="Ringkasan Diri" className="textarea textarea-bordered w-full" />
-        <button type="submit" className="btn btn-primary">Unduh CV (PDF)</button>
-      </form>
-
-      <div className="p-4 bg-white shadow rounded" ref={cvRef}>
-        <h2 className="text-xl font-semibold mb-2">Preview CV</h2>
-        <p><strong>Nama:</strong> {watch("name")}</p>
-        <p><strong>Email:</strong> {watch("email")}</p>
-        <p><strong>Ringkasan:</strong> {watch("summary")}</p>
+      <div className="mt-6 bg-gray-100 p-4 rounded">
+        <h2 className="text-xl font-semibold mb-2">Contoh Form Input CV</h2>
+        <form className="space-y-4">
+          <div>
+            <label className="block font-medium">Nama Lengkap</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 px-3 py-2 rounded"
+              placeholder="Masukkan nama kamu"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Email</label>
+            <input
+              type="email"
+              className="w-full border border-gray-300 px-3 py-2 rounded"
+              placeholder="Masukkan email"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Buat CV (Coming Soon)
+          </button>
+        </form>
       </div>
     </div>
   );
-};
-
-export default CvGenerator;
+}
